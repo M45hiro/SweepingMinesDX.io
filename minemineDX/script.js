@@ -22,13 +22,18 @@ document.addEventListener('DOMContentLoaded', function () {
     function scatterBombs(grid, m, p, n) {
         let bombPositions = [];
         while (bombPositions.length < m) {
-            const x = Math.floor(Math.random() * n);
-            const y = Math.floor(Math.random() * n);
+            for(let i =0; i<p; i++){
+                const x = Math.floor(Math.random() * n);
+                const y = Math.floor(Math.random() * n);
 
-            // 确保该位置未撒过雷，且该位置的雷数不超过p
-            if (grid[x][y] - 1 >= -1*p) {
-                grid[x][y] -= 1;  // 在该位置撒雷，雷用负数表示
-                bombPositions.push([x, y]);
+                // 确保该位置未撒过雷，且该位置的雷数不超过p
+                if (grid[x][y] == 0) {
+                    grid[x][y] -= (i+1);  // 在该位置撒雷，雷用负数表示
+                    for(let j = 0; j<i+1; j++){
+                        bombPositions.push([x, y]);
+                    }
+                }
+
             }
         }
         return grid;
@@ -294,6 +299,7 @@ document.addEventListener('DOMContentLoaded', function () {
         mineProbability = parseInt(mineProbabilityInput.value);  // 每个格子最多的雷数（整数）
         const totalCells = size * size;
         let totalMines = Math.floor(totalCells / 5);
+        //let totalMines = 10;
         remainingMines = totalMines;
         remainingFlags = totalMines;
         while(true){
