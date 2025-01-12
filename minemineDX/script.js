@@ -23,13 +23,14 @@ document.addEventListener('DOMContentLoaded', function () {
         let bombPositions = [];
         while (bombPositions.length < m) {
             for(let i =0; i<p; i++){
+                console.log(i);
                 const x = Math.floor(Math.random() * n);
                 const y = Math.floor(Math.random() * n);
 
                 // 确保该位置未撒过雷，且该位置的雷数不超过p
-                if (grid[x][y] == 0) {
+                if (grid[x][y] == 0 && bombPositions.length + (i+1) <=m ) {
                     grid[x][y] -= (i+1);  // 在该位置撒雷，雷用负数表示
-                    for(let j = 0; j<i+1; j++){
+                    for(j = 0; j<i+1; j++){
                         bombPositions.push([x, y]);
                     }
                 }
