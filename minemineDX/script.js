@@ -199,30 +199,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         return rank;
     }
-    function countSurroundingMines(index) {
-        const row = Math.floor(index / size);
-        const col = index % size;
-        let mineCount = 0;
-    
-        // 检查周围的8个格子
-        const directions = [
-            [-1, 0], [1, 0], [0, -1], [0, 1],
-            [-1, -1], [1, 1], [-1, 1], [1, -1]
-        ];
-    
-        for (let [dx, dy] of directions) {
-            const newRow = row + dx;
-            const newCol = col + dy;
-            if (newRow >= 0 && newRow < size && newCol >= 0 && newCol < size) {
-                const newIndex = newRow * size + newCol;
-                if (mineLocations.includes(newIndex)) {
-                    mineCount++;
-                }
-            }
-        }
-    
-        return mineCount;
-    }
     
     // 处理点击格子的逻辑
     function revealCell(x, y, grid) {
@@ -239,6 +215,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
         // 添加翻开动画效果
         btn.classList.add('flip');
+        btn.classList.add(`number-${grid[x][y]}`);
         // 在翻转结束后显示内容
         setTimeout(() => {
             // 如果是雷，游戏结束
@@ -252,10 +229,10 @@ document.addEventListener('DOMContentLoaded', function () {
             // 获取格子周围雷的数量
             const count = grid[x][y];
             btn.textContent = count === 0 ? '' : count;
-    
+            
             // 设置翻转后的背景色为白色
             btn.classList.add('flip');
-    
+            btn.classList.add(`number-${count}`);
             // 如果该格子周围没有雷，递归显示相邻格子的内容
             if (count === 0) {
                 const directions = [
@@ -288,10 +265,12 @@ document.addEventListener('DOMContentLoaded', function () {
                                 if (neighborCount > 0) {
                                     neighborBtn.textContent = neighborCount;
                                     neighborBtn.classList.add('flip');
+                                    btn.classList.add(`number-${neighborCount}`);
                                 } else {
                                     // 如果是0，保持空白并且递归检查邻近格子
                                     stack.push([nx, ny]);
                                     neighborBtn.classList.add('flip');
+                                    
                                 }
                             }
                         }
@@ -301,6 +280,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 // 如果是数字大于0的格子，直接显示数字并停止递归
                 btn.textContent = count;
                 btn.classList.add('flip');
+                btn.classList.add(`number-${neighborCount}`);
+                
             }
         }, 500); // 设置时间为动画持续时间后再显示内容
     }
