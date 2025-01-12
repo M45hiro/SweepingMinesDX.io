@@ -293,8 +293,7 @@ document.addEventListener('DOMContentLoaded', function () {
         size = parseInt(gridSizeSelect.value);  // 格子大小
         mineProbability = parseInt(mineProbabilityInput.value);  // 每个格子最多的雷数（整数）
         const totalCells = size * size;
-        // let totalMines = Math.floor(totalCells / 5);
-        let totalMines = 10;
+        let totalMines = Math.floor(totalCells / 5);
         remainingMines = totalMines;
         remainingFlags = totalMines;
         while(true){
