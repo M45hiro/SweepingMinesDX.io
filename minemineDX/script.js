@@ -118,21 +118,20 @@ document.addEventListener('DOMContentLoaded', function () {
         button.addEventListener('contextmenu', (event) => {
             if(isGameOver) return;
             event.preventDefault();
-            console.log(revealedCells);
-            console.log(button.classList);
             if (button.classList.contains('flip')) {
                 return;
             }
+
             if (-1* grid[i][j] > flagCount) {
                 mineCount--;
                 console.log(mineCount);
             }
-
             if (flagCount < maxMine) {
                 flagCount++;
                 button.textContent = `🚩${flagCount}`;
                 flagCounts--;
             }
+
             if(mineCount === 0 && flagCounts === 0){
                 message.textContent = '游戏结束！所有地雷已被扫除！';
                 isGameOver = true;
@@ -140,10 +139,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         button.addEventListener('click', (event) => {
             if(isGameOver) return;
-            if (grid[i][j] < 0 && -1* grid[i][j] < flagCount) {
-                mineCount++;
-                console.log(mineCount);
-            }
+
             if (flagCount === 0) {
                 revealCell(i, j, grid);
                 return;
@@ -154,10 +150,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     button.textContent = `🚩${flagCount}`;  // 更新显示的旗帜数
                     flagCounts ++;
                 }
-                if (flagCount === 1) {  // 确保已经插过旗
+                else if (flagCount === 1) {  // 确保已经插过旗
                     flagCount--;  // 减少插旗数量
                     button.textContent = ``;  // 更新显示的旗帜数
                     flagCounts ++;
+                }
+            if (grid[i][j] < 0 && -1* grid[i][j] > flagCount) {
+                    mineCount++;
+                    console.log(mineCount);
                 }
             }
         });
@@ -265,7 +265,6 @@ document.addEventListener('DOMContentLoaded', function () {
                                 if (neighborCount > 0) {
                                     neighborBtn.textContent = neighborCount;
                                     neighborBtn.classList.add('flip');
-                                    console.log(neighborCount);
                                     neighborBtn.classList.add(`number-${neighborCount}`);
                                 } else {
                                     // 如果是0，保持空白并且递归检查邻近格子
@@ -294,7 +293,8 @@ document.addEventListener('DOMContentLoaded', function () {
         size = parseInt(gridSizeSelect.value);  // 格子大小
         mineProbability = parseInt(mineProbabilityInput.value);  // 每个格子最多的雷数（整数）
         const totalCells = size * size;
-        let totalMines = Math.floor(totalCells / 5);
+        // let totalMines = Math.floor(totalCells / 5);
+        let totalMines = 10;
         remainingMines = totalMines;
         remainingFlags = totalMines;
         while(true){
