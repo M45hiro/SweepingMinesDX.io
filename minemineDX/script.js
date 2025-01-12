@@ -265,12 +265,12 @@ document.addEventListener('DOMContentLoaded', function () {
                                 if (neighborCount > 0) {
                                     neighborBtn.textContent = neighborCount;
                                     neighborBtn.classList.add('flip');
-                                    btn.classList.add(`number-${neighborCount}`);
+                                    console.log(neighborCount);
+                                    neighborBtn.classList.add(`number-${neighborCount}`);
                                 } else {
                                     // 如果是0，保持空白并且递归检查邻近格子
                                     stack.push([nx, ny]);
                                     neighborBtn.classList.add('flip');
-                                    
                                 }
                             }
                         }
@@ -280,7 +280,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // 如果是数字大于0的格子，直接显示数字并停止递归
                 btn.textContent = count;
                 btn.classList.add('flip');
-                btn.classList.add(`number-${grid[x][y]}`);
+                btn.classList.add(`number-${count}`);
                 
             }
         }, 500); // 设置时间为动画持续时间后再显示内容
