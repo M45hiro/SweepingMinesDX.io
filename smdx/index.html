@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多重扫雷游戏</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>多重扫雷游戏</h1>
+
+    <div id="game">
+        <div id="settings">
+            <label for="gridSize">选择格子大小: </label>
+            <select id="gridSize">
+                <option value="10">10x10</option>
+                <option value="15">15x15</option>
+                <option value="20">20x20</option>
+            </select>
+
+            <label for="mineProbability">每个格子的最大雷数: </label>
+            <input type="number" id="mineProbability" min="1" max="5" step="1" value="1">
+        </div>
+        <button id="startBtn">重新开始</button>
+        <div id="board"></div>
+        <div id="message"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
