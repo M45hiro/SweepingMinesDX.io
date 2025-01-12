@@ -280,7 +280,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // 如果是数字大于0的格子，直接显示数字并停止递归
                 btn.textContent = count;
                 btn.classList.add('flip');
-                btn.classList.add(`number-${neighborCount}`);
+                btn.classList.add(`number-${grid[x][y]}`);
                 
             }
         }, 500); // 设置时间为动画持续时间后再显示内容
